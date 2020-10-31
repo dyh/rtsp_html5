@@ -1,0 +1,14 @@
+
+.main-page[data-v-1fba3e44] {
+      background: rgba(242, 242, 242, 1);
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      height: 100%;
+}
+

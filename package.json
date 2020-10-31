@@ -1,0 +1,25 @@
+{
+  "name": "hk-camera-video",
+  "version": "1.0.0",
+  "description": "danielmlc",
+  "main": "index.js",
+  "scripts": {
+    "server": "node index.js",
+    "build": "webpages-packer --env production --config packer-config.js",
+    "dev": "webpages-packer --env development --config packer-config.js  --watch true --include mainPage",
+    "start1": "webpages-server --config packer-config.js",
+    "start": "node server/index.js --config packer-config.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vue": "^2.6.12",
+    "webpages-packer": "^1.1.18"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "fluent-ffmpeg": "^2.1.2",
+    "flv.js": "^1.5.0"
+  }
+}
