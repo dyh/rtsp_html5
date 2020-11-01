@@ -1,0 +1,22 @@
+
+.demo-lis {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: nowrap;
+            flex-wrap: nowrap;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+            justify-content: space-between;
+}
+.demo-item {
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+            flex-grow: 1;
+    padding: 10px;
+}
+.demo-vdo {
+    width: 100%;
+    max-width: 880px;
+}
+

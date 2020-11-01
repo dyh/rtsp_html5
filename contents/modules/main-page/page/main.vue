@@ -24,7 +24,6 @@ export default {
                 wrap.innerHTML += dom
                 let url = `http://${config.ip}:${config.port}/live/get/${i}`
                 setTimeout(() => {
-                    
                     this.loadFlv(i, url)
                 }, 1000 * (i + 1));
             }
@@ -37,7 +36,11 @@ export default {
                     this.player['p' + index] = flvjs.createPlayer({
                         type: "flv",
                         isLive: true,
-                        url: url
+                        url: url,
+                        hasAudio: false,
+                    },{
+                        enableStashBuffer:false,
+                        autoCleanupSourceBuffer:true,
                     });
                     this.player['p' + index].attachMediaElement(video);
                     try {
