@@ -3,10 +3,11 @@ const path = require('path')
 const koaStatic = require('koa-static')
 const config = require('./config.json')
 const ffmpeg = require("fluent-ffmpeg");
+const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 function serverStart() {
   let app = express();
   app.get('/', (req, res) => {
-    ctx.body="It's ok!!!";
+    res.body="It's ok!!!";
   })
   app.get('/live/get/:id',handleGetRequest);
   app.all('*', function (req, res, next) {
@@ -23,7 +24,8 @@ function handleGetRequest (req, res) {
   const index = +(req.params && req.params.id) || 0
   var url = `rtsp://${config.account}:${config.password}@${config.ipLists[index]}/Streaming/Channels/1?transportmode=unicast`
   try {
-    ffmpeg(url)
+    let common = ffmpeg(url)
+        .setFfmpegPath(ffmpegPath)
         .addInputOption("-rtsp_transport", "tcp", "-buffer_size", "102400")  // 这里可以添加一些 RTSP 优化的参数
         .on("start", function () {
             console.log(url, "Stream started.");
@@ -39,14 +41,15 @@ function handleGetRequest (req, res) {
             console.log(url, "Stream end!");
          // 摄像机断线的处理
         })
-        .outputFormat("flv").videoCodec("copy").noAudio().pipe(res);
+        let videoStream = common.outputFormat("flv").videoCodec("copy").noAudio();
+        videoStream.pipe(res)
   } catch (error) {
       console.log(error);
   }
 }
 
 serverStart();
-ffmpeg.setFfmpegPath("E:/ProgramData/ffmpeg-N-99803-gbb6edf618a-win64-gpl-shared/bin/ffmpeg.exe");
+
 
 // function localServer() {
 //   let app = express();
