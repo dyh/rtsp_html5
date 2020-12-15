@@ -5,6 +5,7 @@ const config = require('./config.json')
 const ffmpeg = require("fluent-ffmpeg");
 const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 function serverStart() {
+  console.log("aaasdfasdfsadfasdfasdfasdf");
   let app = express();
   app.get('/', (req, res) => {
     res.body="It's ok!!!";
@@ -22,7 +23,7 @@ function serverStart() {
 function handleGetRequest (req, res) {
   console.log('get请求 -> ', req.params)
   const index = +(req.params && req.params.id) || 0
-  var url = `rtsp://${config.account}:${config.password}@${config.ipLists[index]}/Streaming/Channels/1?transportmode=unicast`
+  var url = `rtsp://${config.account}:${config.password}@${config.ipLists[index]}/Streaming/Channels/102?transportmode=unicast`
   try {
     let common = ffmpeg(url)
         .setFfmpegPath(ffmpegPath)

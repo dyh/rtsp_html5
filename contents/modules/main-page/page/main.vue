@@ -39,8 +39,15 @@ export default {
                         url: url,
                         hasAudio: false,
                     },{
-                        enableStashBuffer:false,
-                        autoCleanupSourceBuffer:true,
+                        enableStashBuffer:false, // 启用缓存
+                        autoCleanupSourceBuffer:true, // 自动清理缓存
+                        stashInitialSize:128,
+                        lazyLoad:false, //懒加载
+                        isLive: true,
+                        lazyLoadMaxDuration: 0,
+                        lazyLoadRecoverDuration: 0,
+                        deferLoadAfterSourceOpen: false,
+                        fixAudioTimestampGap: false,
                     });
                     this.player['p' + index].attachMediaElement(video);
                     try {
@@ -48,6 +55,17 @@ export default {
                     } catch (error) {
                         console.log(error);
                     };
+                    setInterval(() => {
+                            if (!video.buffered.length) {
+                                return;
+                            }
+                            let end = video.buffered.end(0);
+                            let diff = end - video.currentTime;
+                            if (diff >= 0.5) {
+                                video.currentTime = end - 0.1 ;
+                            }
+                        },  1000);
+
                 }
             }
         }
