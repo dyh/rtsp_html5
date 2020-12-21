@@ -56,15 +56,15 @@ export default {
                         console.log(error);
                     };
                     setInterval(() => {
-                            if (!video.buffered.length) {
-                                return;
-                            }
-                            let end = video.buffered.end(0);
-                            let diff = end - video.currentTime;
-                            if (diff >= 0.5) {
-                                video.currentTime = end - 0.1 ;
-                            }
-                        },  1000);
+                        if (!video.buffered.length) {
+                            return;
+                        }
+                        let end = video.buffered.end(0);
+                        let diff = end - video.currentTime;
+                        if (diff >= 0.5) {
+                            video.currentTime = end - 0.1 ;
+                        }
+                    },  1000);
 
                 }
             }

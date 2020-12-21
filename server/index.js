@@ -5,10 +5,9 @@ const config = require('./config.json')
 const ffmpeg = require("fluent-ffmpeg");
 const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 function serverStart() {
-  console.log("aaasdfasdfsadfasdfasdfasdf");
   let app = express();
   app.get('/', (req, res) => {
-    res.body="It's ok!!!";
+    res.send("It's ok!!!");
   })
   app.get('/live/get/:id',handleGetRequest);
   app.all('*', function (req, res, next) {
@@ -51,27 +50,3 @@ function handleGetRequest (req, res) {
 
 serverStart();
 
-
-// function localServer() {
-//   let app = express();
-//   app.use(express.static(__dirname));
-//   expressWebSocket(app, null, {
-//       perMessageDeflate: true
-//   });
-//   app.all('*', function (req, res, next) {
-//     res.header('Access-Control-Allow-Origin', '*');
-//     //Access-Control-Allow-Headers ,可根据浏览器的F12查看,把对应的粘贴在这里就行
-//     // res.header('Access-Control-Allow-Headers', 'Content-Type');
-//     // res.header('Access-Control-Allow-Methods', '*');
-//     // res.header('Content-Type', 'application/json;charset=utf-8');
-//     next();
-//   });
-//   app.get('/', (req, res) => {
-//     res.end('ok')
-//   })
-//   app.get('/live/get/:id', handleGetRequest)
-//   // app.ws("/live/ws/:id/", handleWsRequest)
-//   app.listen(port, host);
-//   console.log("express listened")
-//   // handleRtmp(0)
-// }
