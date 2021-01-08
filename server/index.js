@@ -9,7 +9,7 @@ function serverStart() {
   app.get('/', (req, res) => {
     res.send("It's ok!!!");
   })
-  app.get('/live/get/:id',handleGetRequest);
+  app.get('/live/get',handleGetRequest);
   app.all('*', function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     next();
@@ -20,9 +20,9 @@ function serverStart() {
 }
 
 function handleGetRequest (req, res) {
-  console.log('get请求 -> ', req.params)
-  const index = +(req.params && req.params.id) || 0
-  var url = `rtsp://${config.account}:${config.password}@${config.ipLists[index]}/Streaming/Channels/102?transportmode=unicast`
+  console.log('get请求 -> ', req.query)
+  const params = req.query
+  var url = `rtsp://${params.user}:${params.pwd}@${params.ip}/Streaming/Channels/102?transportmode=unicast`
   try {
     let common = ffmpeg(url)
         .setFfmpegPath(ffmpegPath)

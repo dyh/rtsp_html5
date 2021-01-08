@@ -15,7 +15,7 @@ module.exports = {
     mainPage: {
       type: 'browser',
       title: '页面',
-      input: 'contents/modules/main-page/index.js',
+      input: 'contents/main-page/index.js',
     },
     server: {
       type: 'node',

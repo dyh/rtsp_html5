@@ -1,28 +1,42 @@
 <template>
     <div class="main-page">
-        <h1>get请求 flv流直播</h1>
-         <div class="demo-lis" id="demo-wrap">
-         </div>
+        <div class="demo-lis" id="demo-wrap"/>
     </div>
 </template>
 <script>
-import config from '../../../../server/config.json'
+import config from '../../server/config.json'
 import flvjs from 'flv.js'
 export default {
     data () {
         return {
             player:{},
-            lists:config.ipLists,
         }
     },
     methods: {
+        getUrlParams() {
+            const params = location.search.split('?')[1]
+            let result = {}
+            if(params){
+                let paramsArr = params.split('&')
+                paramsArr.map((item)=>{
+                   let code = item.split('=')
+                   if(code[0] === 'ipLists') {
+                       result.ipLists = code[1].split('|')
+                   } else {
+                       result[code[0]] = code[1]
+                   }
+                })
+            }
+            return result
+        },
         loadLists(){
             let wrap = document.getElementById('demo-wrap')
-            if (this.lists && this.lists.length) {
-            for (let i = 0; i < this.lists.length; i++) {
+            let urlParams = this.getUrlParams()
+            if (urlParams && urlParams.ipLists) {
+            for (let i = 0; i < urlParams.ipLists.length; i++) {
                 let dom = `<div class="demo-item"><video class="demo-vdo" id="vdo-box-${i}" muted autoplay></video></div>`
                 wrap.innerHTML += dom
-                let url = `http://${config.ip}:${config.port}/live/get/${i}`
+                let url = `http://${config.ip}:${config.port}/live/get?ip=${urlParams.ipLists[i]}&user=${urlParams.user}&pwd=${urlParams.pwd}`
                 setTimeout(() => {
                     this.loadFlv(i, url)
                 }, 1000 * (i + 1));

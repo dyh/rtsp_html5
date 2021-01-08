@@ -1,4 +1,4 @@
-import app from './page/main.vue'
+import app from './main.vue'
 new Vue({
   el: '#app',
   components: {
