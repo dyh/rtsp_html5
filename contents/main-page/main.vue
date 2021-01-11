@@ -92,15 +92,12 @@ export default {
 <style lang="postcss" >
 .demo-lis {
     display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
+    flex-wrap: wrap;
 }
 .demo-item {
-    flex-grow: 1;
-    padding: 10px;
+    width:50%;
 }
 .demo-vdo {
     width: 100%;
-    max-width: 880px;
 }
 </style>
