@@ -20,7 +20,7 @@ function serverStart() {
 }
 
 function handleGetRequest (req, res) {
-  console.log('get请求 -> ', req.query)
+  // console.log('get请求 -> ', req.query)
   const params = req.query
   var url = `rtsp://${params.user}:${params.pwd}@${params.ip}/Streaming/Channels/102?transportmode=unicast`
   try {
