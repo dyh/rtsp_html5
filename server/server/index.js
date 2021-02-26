@@ -1,30 +1,34 @@
 var express =  require("express");
+
+
 const path = require('path')
 const koaStatic = require('koa-static')
-const { server } = require('./yaml-provider')
+const config = require('./config.json')
 const ffmpeg = require("fluent-ffmpeg");
 const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
-
 function serverStart() {
-  
   let app = express();
-  app.get('/', (req, res) => {
-    res.send("It's ok!!!");
-  })
+//  app.get('/', (req, res) => {
+//    res.send("It's ok!!!");
+//  })
+
+  const cors = require('cors')
+  app.use(cors())
+
   app.get('/live/get',handleGetRequest);
   app.all('*', function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     next();
-  })
+  }) 
   app.use(express.static(path.join(process.cwd(), '/dist/contents/')));
-  app.listen(server.port, server.host);
-  console.log("express listened at: " + server.ip+':' + server.port )
+  app.listen(config.port, config.host);
+  console.log("express listened at:" + config.port )
 }
 
 function handleGetRequest (req, res) {
-  // console.log('get请求 -> ', req.query)
+  console.log('get请求 -> ', req.query)
   const params = req.query
-  var url = `rtsp://${params.user}:${params.pwd}@${params.ip}/Streaming/Channels/102?transportmode=unicast`
+  var url = `rtsp://${params.user}:${params.pwd}@${params.ip}:554`
   try {
     let common = ffmpeg(url)
         .setFfmpegPath(ffmpegPath)
