@@ -15,11 +15,11 @@ module.exports = {
     mainPage: {
       type: 'browser',
       title: '页面',
-      input: 'contents/main-page/index.js',
+      input: 'src/contents/main-page/index.js',
     },
     server: {
       type: 'node',
-      input: 'server/index.js',
+      input: 'src/server/index.js',
       output: {
         fileName:'server'
       },

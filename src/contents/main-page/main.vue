@@ -1,6 +1,6 @@
 <template>
     <div class="main-page">
-        <div class="demo-lis" id="demo-wrap"/>
+        <div class="camera-lis" id="camera-wrap"/>
     </div>
 </template>
 <script>
@@ -30,17 +30,18 @@ export default {
             return result
         },
         loadLists(){
-            let wrap = document.getElementById('demo-wrap')
+            console.log(process.env)
+            let wrap = document.getElementById('camera-wrap')
             let urlParams = this.getUrlParams()
             if (urlParams && urlParams.ipLists) {
-            for (let i = 0; i < urlParams.ipLists.length; i++) {
-                let dom = `<div class="demo-item"><video class="demo-vdo" id="vdo-box-${i}" muted autoplay></video></div>`
-                wrap.innerHTML += dom
-                let url = `http://${config.ip}:${config.port}/live/get?ip=${urlParams.ipLists[i]}&user=${urlParams.user}&pwd=${urlParams.pwd}`
-                setTimeout(() => {
-                    this.loadFlv(i, url)
-                }, 1000 * (i + 1));
-            }
+                for (let i = 0; i < urlParams.ipLists.length; i++) {
+                    let dom = `<div class="camera-item"><video class="camera-vdo" id="vdo-box-${i}" muted autoplay></video></div>`
+                    wrap.innerHTML += dom
+                    let url = `http://${config.ip}:${config.port}/live/get?ip=${urlParams.ipLists[i]}&user=${urlParams.user}&pwd=${urlParams.pwd}`
+                    setTimeout(() => {
+                        this.loadFlv(i, url)
+                    }, 1000 * (i + 1));
+                }
             }
         },
         loadFlv(index, url) {
@@ -90,14 +91,14 @@ export default {
 }
 </script>
 <style lang="postcss" >
-.demo-lis {
+.camera-lis {
     display: flex;
     flex-wrap: wrap;
 }
-.demo-item {
+.camera-item {
     width:50%;
 }
-.demo-vdo {
+.camera-vdo {
     width: 100%;
 }
 </style>

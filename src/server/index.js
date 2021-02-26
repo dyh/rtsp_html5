@@ -1,10 +1,12 @@
 var express =  require("express");
 const path = require('path')
 const koaStatic = require('koa-static')
-const config = require('./config.json')
+const { server } = require('./yaml-provider')
 const ffmpeg = require("fluent-ffmpeg");
 const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
+
 function serverStart() {
+  
   let app = express();
   app.get('/', (req, res) => {
     res.send("It's ok!!!");
@@ -13,10 +15,10 @@ function serverStart() {
   app.all('*', function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     next();
-  }) 
+  })
   app.use(express.static(path.join(process.cwd(), '/dist/contents/')));
-  app.listen(config.port, config.host);
-  console.log("express listened at:" + config.port )
+  app.listen(server.port, server.host);
+  console.log("express listened at: " + server.ip+':' + server.port )
 }
 
 function handleGetRequest (req, res) {
